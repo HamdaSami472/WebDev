@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 90%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+th {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Row backgrounds */
+tr[class="read"] {
+    background-image: linear-gradient(to right, #d4edda, #c3e6cb);
+}
+
+tr[class="to-read"] {
+    background-image: linear-gradient(to right, #fff3cd, #ffeaa7);
+}
+
+tr[class="in-progress"] {
+    background-image: linear-gradient(to right, #d6eaf8, #aed6f1);
+}
+
+/* All spans inline-block */
+span {
+    display: inline-block;
+}
+
+/* Status badges */
+tr[class="to-read"] span[class="status"] {
+    border: 2px solid #f39c12;
+    background-image: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #7d6608;
+}
+
+tr[class="read"] span[class="status"] {
+    border: 2px solid #27ae60;
+    background-image: linear-gradient(135deg, #d5f5e3, #82e0aa);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #1a6e3a;
+}
+
+tr[class="in-progress"] span[class="status"] {
+    border: 2px solid #3498db;
+    background-image: linear-gradient(135deg, #d6eaf8, #85c1e9);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #1a5276;
+}
+
+/* Status & rate common */
+span[class="status"],
+span[class^="rate"] {
+    height: 30px;
+    width: auto;
+    padding: 4px 12px;
+}
+
+/* Rate stars */
+span[class^="rate"] > span {
+    border: 2px solid #bdc3c7;
+    border-radius: 50%;
+    margin: 0 2px;
+    height: 20px;
+    width: 20px;
+    background-color: #ecf0f1;
+    display: inline-block;
+}
+
+/* Star ratings */
+span[class*="one"] > span:first-child {
+    background-image: linear-gradient(135deg, #f1c40f, #f39c12);
+}
+
+span[class*="two"] > span:first-child,
+span[class*="two"] > span:nth-child(2) {
+    background-image: linear-gradient(135deg, #f1c40f, #f39c12);
+}
+
+span[class*="three"] > span {
+    background-image: linear-gradient(135deg, #f1c40f, #f39c12);
+}
+
+/* Hover effects */
+tr:hover td {
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+    th, td {
+        padding: 10px 12px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+}

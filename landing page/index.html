@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaPhone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        <div class="logocontainer">
+            <img src="assests/images/logo.jpg" alt="novaphone logo" width="60px">
+            <span class="brandname"> NovaPhone</span>
+
+        </div>
+         <nav id="nav-bar">
+            <a class="nav-link" href="#features">Features</a>
+            <a class="nav-link" href="#video-section">Watch</a>
+            <a class="nav-link" href="#pricing">Pricing</a>
+    </header>
+    <main>
+        <section id="hero">
+            <h1>NovaPhone</h1>
+            <p>the future of mobile technology is here</p>
+        </section>
+        <section id="feature">
+            <h2>Feature Cards</h2>
+            <h2>Why Choose NovaPhone X?</h2>
+            <div class="feature-grid">
+                <!-- Feature Card 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3>Pro Camera System</h3>
+                    <p>108MP triple camera with 8K video recording and night mode for stunning photos in any lighting.</p>
+                </div>
+                
+                <!-- Feature Card 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Ultra-Fast Charging</h3>
+                    <p>5000mAh battery with 65W fast charging - get 50% charge in just 15 minutes.</p>
+                </div>
+                
+                <!-- Feature Card 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Edge-to-Edge Display</h3>
+                    <p>6.8" AMOLED 120Hz display with HDR10+ and 2000 nits peak brightness.</p>
+                </div>
+            </div>
+        </section>
+        <section id="video-section">
+            <h2>See It In Action</h2>
+            <iframe id="video" src="assests/video/video.mp4" 
+                    title="Product Video" frameborder="0" allowfullscreen>
+            </iframe>
+        </section>
+        <section id="pricing">
+            <h2>Choose Your Plan</h2>
+              <div class="pricing-grid">
+                <!-- Pricing Card 1 - Basic -->
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price">$799</div>
+                    <ul class="pricing-features">
+                        <li>128GB Storage</li>
+                        <li>8GB RAM</li>
+                        <li>6.5" Display</li>
+                        <li>Dual Camera</li>
+                        <li>1 Year Warranty</li>
+                    </ul>
+                    <button class="pricing-btn">Select Plan</button>
+                </div>
+                
+                <!-- Pricing Card 2 - Pro (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">🔥 Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$999</div>
+                    <ul class="pricing-features">
+                        <li>256GB Storage</li>
+                        <li>12GB RAM</li>
+                        <li>6.8" AMOLED Display</li>
+                        <li>Triple Camera System</li>
+                        <li>2 Year Warranty</li>
+                        <li>Fast Charger Included</li>
+                    </ul>
+                    <button class="pricing-btn featured-btn">Select Plan</button>
+                </div>
+                
+                <!-- Pricing Card 3 - Ultimate -->
+                <div class="pricing-card">
+                    <h3>Ultimate</h3>
+                    <div class="price">$1,299</div>
+                    <ul class="pricing-features">
+                        <li>512GB Storage</li>
+                        <li>16GB RAM</li>
+                        <li>6.9" AMOLED 120Hz</li>
+                        <li>Quad Camera System</li>
+                        <li>3 Year Warranty</li>
+                        <li>Premium Accessories</li>
+                        <li>Priority Support</li>
+                    </ul>
+                    <button class="pricing-btn">Select Plan</button>
+                </div>
+            </div>
+        </section>
+         <section id="subscribe">
+            <h2>Get Early Access</h2>
+            <form id="form" action="https://www.freecodecamp.org/email-submit" method="post">
+                <input type="email" id="email" name="email" 
+                       placeholder="Enter your email address" required>
+                <input type="submit" id="submit" value="Subscribe Now">
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 NovaPhone. All rights reserved.</p>
+    </footer>
+</body>
+</html>

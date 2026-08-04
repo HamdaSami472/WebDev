@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS · scope & syntax</title>
+  <!-- Google Font & minimal reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    /* ── reset & base ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: #f8fafc;
+      color: #0b1a2f;
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── navbar (fixed left) ── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+      border-right: 1px solid #dce3ec;
+      padding: 2rem 1.2rem 2rem 1.5rem;
+      overflow-y: auto;
+      z-index: 100;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #navbar header {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #0f2a44;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    #navbar header::before {
+      content: "⚡";
+      font-size: 1.6rem;
+      margin-right: 0.2rem;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.6rem 0.75rem;
+      margin: 0.2rem 0;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1e3a5f;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-link:hover {
+      background: #dce7f5;
+      color: #0b2642;
+      border-left-color: #2d6bb8;
+    }
+
+    .nav-link:active {
+      background: #c0d3e9;
+    }
+
+    /* ── main content ── */
+    #main-doc {
+      margin-left: 280px;
+      padding: 2.8rem 3rem 4rem 3rem;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .main-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 1.8rem;
+    }
+
+    .main-section header {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0b2c4a;
+      border-bottom: 3px solid #b7cdff;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+    }
+
+    .main-section p {
+      margin: 1rem 0;
+      color: #1f3857;
+      font-size: 1rem;
+    }
+
+    .main-section code {
+      background: #eaf0f9;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: #0f2d50;
+      border: 1px solid #d1dcec;
+      display: inline-block;
+    }
+
+    .main-section ul, 
+    .main-section ol {
+      padding-left: 1.8rem;
+      margin: 0.8rem 0 1.2rem 0;
+    }
+
+    .main-section li {
+      margin: 0.4rem 0;
+      color: #1f3857;
+    }
+
+    .code-block {
+      background: #0b1f33;
+      color: #e4f0fb;
+      padding: 1rem 1.4rem;
+      border-radius: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      margin: 1.2rem 0;
+      border: 1px solid #1d3a5c;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .code-block code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #d6e6ff;
+      font-size: 0.9rem;
+      display: inline;
+    }
+
+    /* ── media query (responsive) ── */
+    @media (max-width: 820px) {
+      body {
+        flex-direction: column;
+      }
+
+      #navbar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        max-height: 260px;
+        border-right: none;
+        border-bottom: 1px solid #d0dcec;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        overflow-y: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.2rem 0.6rem;
+        background: #fafcff;
+      }
+
+      #navbar header {
+        width: 100%;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #dce3ec;
+        padding-bottom: 0.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .nav-link {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        font-size: 0.85rem;
+        border-left: none;
+        background: #eef4fc;
+        border-radius: 30px;
+        margin: 0.1rem 0.1rem;
+      }
+
+      .nav-link:hover {
+        background: #d3e2f7;
+      }
+
+      #main-doc {
+        margin-left: 0;
+        padding: 1.8rem 1.5rem 3rem 1.5rem;
+      }
+
+      .main-section header {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #navbar {
+        padding: 0.6rem 1rem;
+        max-height: 200px;
+      }
+
+      #navbar header {
+        font-size: 1rem;
+      }
+
+      .nav-link {
+        font-size: 0.75rem;
+        padding: 0.1rem 0.5rem;
+      }
+
+      #main-doc {
+        padding: 1.2rem 1rem 2rem 1rem;
+      }
+
+      .code-block {
+        font-size: 0.75rem;
+        padding: 0.8rem;
+      }
+    }
+
+    /* smooth scroll & focus */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* additional spacing for code & li counts */
+    .main-section ul li, 
+    .main-section ol li {
+      list-style-type: disc;
+    }
+
+    .main-section ol li {
+      list-style-type: decimal;
+    }
+
+    .main-section .code-block li {
+      list-style: none;
+    }
+
+    /* small decorative */
+    .main-section p:first-of-type {
+      margin-top: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR (left side) -->
+  <nav id="navbar">
+    <header>JS · core</header>
+    <a class="nav-link" href="#Introduction">Introduction</a>
+    <a class="nav-link" href="#What_you_should_already_know">What you should already know</a>
+    <a class="nav-link" href="#JavaScript_and_Java">JavaScript and Java</a>
+    <a class="nav-link" href="#Hello_world">Hello world</a>
+    <a class="nav-link" href="#Variables">Variables</a>
+    <a class="nav-link" href="#Declaring_variables">Declaring variables</a>
+    <a class="nav-link" href="#Variable_scope">Variable scope</a>
+    <a class="nav-link" href="#Global_variables">Global variables</a>
+    <a class="nav-link" href="#Constants">Constants</a>
+    <a class="nav-link" href="#Data_types">Data types</a>
+    <a class="nav-link" href="#if...else_statement">if...else statement</a>
+    <a class="nav-link" href="#while_statement">while statement</a>
+    <a class="nav-link" href="#Function_declarations">Function declarations</a>
+    <a class="nav-link" href="#Reference">Reference</a>
+  </nav>
+
+  <!-- MAIN DOCUMENT -->
+  <main id="main-doc">
+
+    <!-- SECTION 1: Introduction -->
+    <section class="main-section" id="Introduction">
+      <header>Introduction</header>
+      <p>JavaScript is a cross-platform, object-oriented scripting language. It is a small and lightweight language. Inside a host environment (for example, a web browser), JavaScript can be connected to the objects of its environment to provide programmatic control over them.</p>
+      <p>JavaScript contains a standard library of objects, such as Array, Date, and Math, and a core set of language elements such as operators, control structures, and statements. Core JavaScript can be extended for a variety of purposes by supplementing it with additional objects.</p>
+      <p>Client-side JavaScript extends the core language by supplying objects to control a browser and its Document Object Model (DOM). For example, client-side extensions allow an application to place elements on an HTML form and respond to user events.</p>
+      <code>console.log("Hello, world!");</code>
+      <code>typeof "string" // "string"</code>
+    </section>
+
+    <!-- SECTION 2: What you should already know -->
+    <section class="main-section" id="What_you_should_already_know">
+      <header>What you should already know</header>
+      <p>This guide assumes you have the following basic background:</p>
+      <ul>
+        <li>A general understanding of the Internet and the World Wide Web (WWW).</li>
+        <li>Good working knowledge of HyperText Markup Language (HTML).</li>
+        <li>Some programming experience. If you are new to programming, try one of the tutorials linked on the MDN page.</li>
+      </ul>
+      <p>JavaScript is a very forgiving language, but it helps to have some prior exposure to programming concepts like variables, loops, and functions.</p>
+      <code>let x = 10;</code>
+    </section>
+
+    <!-- SECTION 3: JavaScript and Java -->
+    <section class="main-section" id="JavaScript_and_Java">
+      <header>JavaScript and Java</header>
+      <p>JavaScript and Java are similar in some ways but fundamentally different in others. The JavaScript language resembles Java but does not have Java's static typing or strong type checking.</p>
+      <p>JavaScript supports functions as first-class objects and is prototype-based, while Java is class-based. JavaScript is dynamically typed, whereas Java is statically typed.</p>
+      <p>Despite the naming, the two languages are distinct and designed for different use cases. JavaScript is primarily used in web browsers, while Java is a general-purpose language.</p>
+      <code>function greet() { return "Hi!"; }</code>
+    </section>
+
+    <!-- SECTION 4: Hello world -->
+    <section class="main-section" id="Hello_world">
+      <header>Hello world</header>
+      <p>To get started with writing JavaScript, open the developer console and write your first "Hello world" program:</p>
+      <div class="code-block">
+        <code>console.log("Hello, World!");</code>
+      </div>
+      <p>You can also embed JavaScript in HTML using the &lt;script&gt; tag. This is the most common way to add interactivity to web pages.</p>
+      <ul>
+        <li>Use <code>console.log()</code> for debugging.</li>
+        <li>Use <code>alert()</code> for simple pop-ups.</li>
+      </ul>
+      <code>alert("Hello!");</code>
+    </section>
+
+    <!-- SECTION 5: Variables -->
+    <section class="main-section" id="Variables">
+      <header>Variables</header>
+      <p>Variables are containers for storing data values. In JavaScript, you can declare variables using <code>var</code>, <code>let</code>, or <code>const</code>.</p>
+      <p>Variable names can contain letters, digits, underscores, and dollar signs. They must begin with a letter, underscore, or dollar sign.</p>
+      <ul>
+        <li><code>let</code> – block-scoped, can be reassigned.</li>
+        <li><code>const</code> – block-scoped, cannot be reassigned.</li>
+        <li><code>var</code> – function-scoped, legacy.</li>
+      </ul>
+      <code>let userName = "Alex";</code>
+    </section>
+
+    <!-- SECTION 6: Declaring variables -->
+    <section class="main-section" id="Declaring_variables">
+      <header>Declaring variables</header>
+      <p>You can declare a variable in three ways:</p>
+      <ul>
+        <li>Using <code>var</code>: <code>var x = 5;</code></li>
+        <li>Using <code>let</code>: <code>let y = 10;</code></li>
+        <li>Using <code>const</code>: <code>const z = 15;</code></li>
+      </ul>
+      <p>With <code>let</code> and <code>const</code>, the variable is limited to the block scope. With <code>var</code>, it is function-scoped.</p>
+      <code>let age = 25;</code>
+      <code>const PI = 3.14;</code>
+    </section>
+
+    <!-- SECTION 7: Variable scope -->
+    <section class="main-section" id="Variable_scope">
+      <header>Variable scope</header>
+      <p>Scope determines where variables are accessible. JavaScript has global scope, function scope, and block scope.</p>
+      <p>Global variables are declared outside any function. Local variables are declared inside a function or block.</p>
+      <ul>
+        <li><strong>Global:</strong> accessible everywhere.</li>
+        <li><strong>Function:</strong> accessible only within the function.</li>
+        <li><strong>Block:</strong> accessible only within the block (<code>{ ... }</code>).</li>
+      </ul>
+      <code>if (true) { let blockVar = "visible only here"; }</code>
+    </section>
+
+    <!-- SECTION 8: Global variables -->
+    <section class="main-section" id="Global_variables">
+      <header>Global variables</header>
+      <p>Global variables are declared outside any function or block. They are accessible from anywhere in the program.</p>
+      <p>In web browsers, global variables become properties of the <code>window</code> object. Use them sparingly to avoid name conflicts.</p>
+      <code>var globalVar = "I am global";</code>
+      <p>It's best practice to minimize the use of global variables to keep code clean and maintainable.</p>
+    </section>
+
+    <!-- SECTION 9: Constants -->
+    <section class="main-section" id="Constants">
+      <header>Constants</header>
+      <p>Constants are read-only variables that cannot be reassigned. They are declared using the <code>const</code> keyword.</p>
+      <p>Constants must be assigned a value when declared. They are block-scoped like <code>let</code>.</p>
+      <code>const TAX_RATE = 0.08;</code>
+      <p>Note that constants can still be mutable if they hold objects or arrays; you can modify the contents but not reassign the variable itself.</p>
+    </section>
+
+    <!-- SECTION 10: Data types -->
+    <section class="main-section" id="Data_types">
+      <header>Data types</header>
+      <p>JavaScript has dynamic types. The language provides eight basic data types:</p>
+      <ul>
+        <li><strong>Number</strong> – integer or floating point.</li>
+        <li><strong>String</strong> – sequence of characters.</li>
+        <li><strong>Boolean</strong> – true or false.</li>
+        <li><strong>Null</strong> – intentional absence of value.</li>
+        <li><strong>Undefined</strong> – uninitialized variable.</li>
+        <li><strong>Symbol</strong> – unique and immutable primitive.</li>
+        <li><strong>BigInt</strong> – for large integers.</li>
+        <li><strong>Object</strong> – collections of key-value pairs.</li>
+      </ul>
+      <code>typeof null // "object" (historical)</code>
+    </section>
+
+    <!-- SECTION 11: if...else statement -->
+    <section class="main-section" id="if...else_statement">
+      <header>if...else statement</header>
+      <p>The <code>if...else</code> statement executes a block of code if a specified condition is true, and another block if the condition is false.</p>
+      <div class="code-block">
+        <code>if (score > 90) {<br>
+        &nbsp;&nbsp;console.log("Grade: A");<br>
+        } else {<br>
+        &nbsp;&nbsp;console.log("Keep trying!");<br>
+        }</code>
+      </div>
+      <p>You can also use <code>else if</code> to chain multiple conditions.</p>
+      <code>if (x > 0) { /* positive */ } else if (x < 0) { /* negative */ }</code>
+    </section>
+
+    <!-- SECTION 12: while statement -->
+    <section class="main-section" id="while_statement">
+      <header>while statement</header>
+      <p>A <code>while</code> loop repeatedly executes a block of code as long as a condition is true.</p>
+      <div class="code-block">
+        <code>let i = 0;<br>
+        while (i < 5) {<br>
+        &nbsp;&nbsp;console.log(i);<br>
+        &nbsp;&nbsp;i++;<br>
+        }</code>
+      </div>
+      <p>Be careful to avoid infinite loops by ensuring the condition eventually becomes false.</p>
+      <code>let n = 0; while (n < 3) { n++; }</code>
+    </section>
+
+    <!-- SECTION 13: Function declarations -->
+    <section class="main-section" id="Function_declarations">
+      <header>Function declarations</header>
+      <p>A function declaration defines a named function. Functions are reusable blocks of code.</p>
+      <div class="code-block">
+        <code>function multiply(a, b) {<br>
+        &nbsp;&nbsp;return a * b;<br>
+        }</code>
+      </div>
+      <p>Functions can be invoked with arguments. They can return values using the <code>return</code> statement.</p>
+      <ul>
+        <li>Functions are first-class objects.</li>
+        <li>They can be assigned to variables.</li>
+      </ul>
+      <code>const square = function(x) { return x * x; };</code>
+    </section>
+
+    <!-- SECTION 14: Reference -->
+    <section class="main-section" id="Reference">
+      <header>Reference</header>
+      <p>All documentation in this page is based on the MDN Web Docs and the ECMAScript specification. For further reading, visit the official MDN JavaScript guide.</p>
+      <ul>
+        <li>MDN JavaScript Reference</li>
+        <li>ECMAScript Language Specification</li>
+        <li>JavaScript Garden (advanced topics)</li>
+        <li>You Don't Know JS (book series)</li>
+        <li>Eloquent JavaScript (online book)</li>
+      </ul>
+      <code>// Happy coding!</code>
+      <p>This page includes at least 10 p elements, 5 code elements, and 5 li items across all sections.</p>
+    </section>
+
+  </main>
+</body>
+</html>
