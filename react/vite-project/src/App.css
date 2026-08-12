@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #121212; 
+}
+.parent{
+  justify-content: space-between;
+
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  height: 420px;
+  margin-bottom: 10px;
+  width: 320px;
+  background-color: #ffffff;
+  border-radius: 28px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top img {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  object-fit: contain;
+  padding: 4px;
+}
+
+.top button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #d0d0d0;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  color: #666;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.center h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+.center h3 span {
+  font-size: 11px;
+  font-weight: 400;
+  color: #888;
+  margin-left: 6px;
+}
+
+.center h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.2;
+}
+
+
+.center .tag {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.center .tag h4 {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #e5e5e5;
+  color: #222;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e2e2e2;
+  padding-top: 16px;
+}
+
+.bottom .pay-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}
+
+.bottom .pay-info p {
+  font-size: 13px;
+  font-weight: 600;
+  color: black;
+  margin-top: 2px;
+}
+
+.bottom button {
+  border: 1px solid #777777;
+  background-color: black;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  color: #dadada;;
+  cursor: pointer;
+}
