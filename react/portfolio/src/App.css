@@ -1,0 +1,13 @@
+body{
+  background: #000000b1 ;
+}
+
+.hover-image {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-image:hover {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 20px 40px rgba(255, 165, 0, 0.4);
+}
