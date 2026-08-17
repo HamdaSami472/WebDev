@@ -3,7 +3,7 @@ import '../app.css';
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center px-6 md:px-20 pt-16">
+    <section id="home" className="min-h-screen flex items-center px-6 md:px-20 pt-16">
       <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
         
         <motion.div
@@ -13,13 +13,11 @@ const Hero = () => {
         >
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
             <span className="text-orange-500">Hamda Sami</span> <br />
-            <span className="text-orange-500 text-lg">AI & ML Enthusiast</span>
+            <span className="text-orange-500 text-xl">Frontend Developer expanding into Full-Stack & AI/ML</span>
           </h1>
 
           <p className="text-lg mt-4 text-gray-800 dark:text-gray-300 max-w-lg">
-            Welcome to my portfolio! I'm a full-stack developer & active learner
-            with a passion of learning Computer Science and applying it to
-            real-world problems.
+           frontend developer, CS student, and lifelong learner, currently diving into full-stack and AI/ML to create meaningful solutions.
           </p>
 
           <div className="mt-6 flex items-center gap-6">
@@ -51,7 +49,7 @@ const Hero = () => {
               src="/hamda-img.png"
               className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-orange-500 shadow-2xl cursor-pointer"
               whileHover={{ 
-                y: -10,  // ← Moves up by 10px
+                y: -10,  
                 scale: 1.03,
                 transition: { 
                   duration: 0.2,
